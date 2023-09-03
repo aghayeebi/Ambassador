@@ -1,14 +1,15 @@
 <template>
   <div>
 
-    <Nav />
+    <Nav :user="user"/>
 
 
     <div class="container-fluid">
       <div class="row">
         <Menu/>
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+          <div
+              class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 
           </div>
 
@@ -43,12 +44,28 @@
 <script>
 import Nav from "@/components/Nav.vue";
 import Menu from "@/components/menu.vue";
+import axios from "axios";
+import {User} from "@/models/user"
 
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "layout",
-  components: {Menu, Nav}
+  components: {Menu, Nav},
+  data() {
+    return {
+      user:  new User()
+    }
+  },
+  async mounted() {
+    try {
+      const {data} = await axios.get('user');
+      this.user = data;
+    } catch (e) {
+      await this.$router.push('/login');
+    }
+
+  }
 
 }
 </script>
@@ -122,6 +139,7 @@ export default {
   --bs-btn-active-bg: #5a23c8;
   --bs-btn-active-border-color: #5a23c8;
 }
+
 .bd-mode-toggle {
   z-index: 1500;
 }
