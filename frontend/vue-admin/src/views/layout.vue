@@ -1,39 +1,17 @@
 <template>
   <div>
-
     <Nav :user="user"/>
-
-
     <div class="container-fluid">
       <div class="row">
         <Menu/>
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-          <div
-              class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap
+                      align-items-center pt-3 pb-2 mb-3 border-bottom">
           </div>
 
           <div class="table-responsive small">
-            <table class="table table-striped table-sm">
-              <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Header</th>
-                <th scope="col">Header</th>
-                <th scope="col">Header</th>
-                <th scope="col">Header</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr>
-                <td>1,001</td>
-                <td>random</td>
-                <td>data</td>
-                <td>placeholder</td>
-                <td>text</td>
-              </tr>
-              </tbody>
-            </table>
+            <router-view />
+
           </div>
         </main>
       </div>
@@ -54,7 +32,7 @@ export default {
   components: {Menu, Nav},
   data() {
     return {
-      user:  new User()
+      user: new User()
     }
   },
   async mounted() {
@@ -62,7 +40,7 @@ export default {
       const {data} = await axios.get('user');
       this.user = data;
     } catch (e) {
-      await this.$router.push('/login');
+      await this.$router.push('login');
     }
 
   }

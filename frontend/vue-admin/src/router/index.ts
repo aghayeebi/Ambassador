@@ -4,10 +4,18 @@ import HomeView from '../views/HomeView.vue'
 import Layout from "@/views/layout.vue";
 import login from "@/views/login.vue";
 import register from "@/views/register.vue";
+import Users from "@/views/users.vue";
 
 
 const routes: Array<RouteRecordRaw> = [
-  {path: '' , component: Layout},
+  {
+    path: '' ,
+    component: Layout,
+    children: [
+      {path:'', redirect:'users'},
+      {path: '/users', component: Users}
+    ]
+  },
   {path: '/login' , component: login},
   {path: '/register' , component: register}
 
